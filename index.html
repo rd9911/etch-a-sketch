@@ -8,6 +8,7 @@
     </body>
 </html>
 <script>
+    
     function hover(element, attribute, value) {
         element.addEventListener('mouseenter', e => element.style[attribute] = value);
         element.addEventListener('mouseleave', e => element.style[attribute] = value);
@@ -26,20 +27,32 @@
     body.insertBefore(cleanAskBtn, container)
     
 
-    function makeRowCol(numRow, numCol) {
-        container.style.setProperty('--grid-rows', numRow);
-        container.style.setProperty('--grid-cols', numCol);
-        for(let i=0; i<(numCol*numRow); i++) {
+    function makeRowCol(numRowCol) {
+        container.style.setProperty('--grid-rows', numRowCol);
+        container.style.setProperty('--grid-cols', numRowCol);
+        for(let i=0; i<(numRowCol**2); i++) {
             var sqrGrid = document.createElement('div');
             container.appendChild(sqrGrid).className = 'grid-item';
         };
     };
-    makeRowCol(16, 16);
+    makeRowCol(16);
+
+    
     const allGridItems = Array.from(document.querySelectorAll('.grid-item'));    
     allGridItems.map(gridItem => hover(gridItem, 'background-color', 'pink'));
     cleanAskBtn.addEventListener('click', () => {
-        allGridItems.map(gridItem => gridItem.style['background-color'] = null);
+        if (allGridItems) {
+            allGridItems.map(gridItem => gridItem.style['background-color'] = null);
+            newAttemp();
+        }
     })
 
-    
+    function newAttemp() {
+        let numOfGrids = prompt('Enter the size of grid you want to have in integer (e.g 20, 40, 70). *Maximum size of grid: 100.');
+        if (numOfGrids <= 100) {
+            makeRowCol(numOfGrids);
+        } else {
+            newAttemp();
+        }
+    }
 </script>
