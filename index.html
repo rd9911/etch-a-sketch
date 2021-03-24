@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="index.css" media="screen" />
+    </head>
+    <body>
+        <div class="container"></div>
+    </body>
+</html>
+<script>
+    function hover(element, attribute, value) {
+        element.addEventListener('mouseenter', e => element.style[attribute] = value);
+        element.addEventListener('mouseleave', e => element.style[attribute] = value);
+    }
+    const container = document.querySelector('.container');
+
+    function makeRowCol(numRow, numCol) {
+        container.style.setProperty('--grid-rows', numRow);
+        container.style.setProperty('--grid-cols', numCol);
+        for(let i=0; i<(numCol*numRow); i++) {
+            var sqrGrid = document.createElement('div');
+            container.appendChild(sqrGrid).className = 'grid-item';
+        };
+    };
+    makeRowCol(16, 16);
+    const allGridItems = document.querySelectorAll('.grid-item');    
+    allGridItems = Array.from(allGridItems).map(gridItem => hover(gridItem, 'background-color', 'pink'));
+
+
+</script>
