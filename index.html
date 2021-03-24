@@ -12,7 +12,19 @@
         element.addEventListener('mouseenter', e => element.style[attribute] = value);
         element.addEventListener('mouseleave', e => element.style[attribute] = value);
     }
+    
+    function assignStyles(element, styles) {
+        Object.assign(element.style, styles);
+    }
+
+    const body = document.querySelector('body');
     const container = document.querySelector('.container');
+
+    const cleanAskBtn = document.createElement('button')
+    cleanAskBtn.textContent = 'Start again!';
+    cleanAskBtn.style.cssText = 'text-align:center; padding:15px; font-size:15px;';
+    body.insertBefore(cleanAskBtn, container)
+    
 
     function makeRowCol(numRow, numCol) {
         container.style.setProperty('--grid-rows', numRow);
@@ -23,8 +35,11 @@
         };
     };
     makeRowCol(16, 16);
-    const allGridItems = document.querySelectorAll('.grid-item');    
-    allGridItems = Array.from(allGridItems).map(gridItem => hover(gridItem, 'background-color', 'pink'));
+    const allGridItems = Array.from(document.querySelectorAll('.grid-item'));    
+    allGridItems.map(gridItem => hover(gridItem, 'background-color', 'pink'));
+    cleanAskBtn.addEventListener('click', () => {
+        allGridItems.map(gridItem => gridItem.style['background-color'] = null);
+    })
 
-
+    
 </script>
